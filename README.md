@@ -42,5 +42,16 @@ O túnel ligado é composto por um OR de 16 entradas, cada entrada é um AND ent
 
 O motivo por trás do OR com "estado 2" é bastante simples: no estado 2 não há o armazenamento de dados, dessa forma, mesmo que um led esteja aceso em cima de um display ligado, não há problema apertar o confirma pois nenhum valor será armazenado que altere o resultado da rodada (se pontuou ou não) e a troca de jogador. Sem esse OR, seria necessário que o jogador mudasse para um display desligado apenas para passar a vez, o que não é eficiente.
 <h3>Correção de eventuais bugs</h3>
+Durante a construção do circuito, alguns bugs surgiram principalmente por motivos de atraso de clock. A fim de resolvê-los, algumas modificações foram feitas em partes específicas do circuito.
+O primeiro deles é relacionado ao atraso do túnel "CONFIRMA" na máquina de estado. Ele foi conectado a um flip flop D, a saída foi conectada ao AND de confirmação e ao clear, permitindo que apenas um único pulso de clock seja ativado. Anteriormente a essa modificação, o pulso do "CONFIRMA" gerava a mudança de estado e entrava em conflito com o túnel "ligado", o que ignorava o estado 0 e passava do estado 3 direto para o 1. 
+
+Além disso, flip flops D também foram adicionados ao pulso do "estado 1" e "estado 2" nos registradores que guardam os números escolhidos para garantir seu funciomnamento.
+
+No contador pesponsável pelo turno dos jogadores, foi preciso adicionar um registrador para o estado 3 e um "check" negado pois no estado 3 ocorrem a pontuação e a troca de jogador, o que ocasionava um pulso suficiente para pontuar os dois jogadores ao mesmo tempo. Portanto, a modificação feita guarda o estado 3 e, quando a já pontuação ter sido feita (ou seja, *não* está checando), logo após passa o turno.
+
+Por fim, a última alteração realizada foi inserir uma porta AND de três entradas para o registrador dos displays, pois sem isso, caso um player acertasse um par, e mudasse para para outro display desligado antes de passar a vez, este era aceso e impedia o andamento do jogo.
 
 <h3>Aleatoriedade</h3>
+O circuito possui um sistema simples de aleatoriedade. Ele funciona a partir de um gerador de número aleatório de 4 bits que, a depender do número gerado, seleciona uma sequência para ser exibida em cada linha do jogo.
+
+Seguindo a imagem acima como exemplo, se o gerador marcar 0, o número 7 é exibido no display do túnel "N00", já se marcar 2, o número 2 é exibido. Assim, como são 4 linhas, há 4 geradores e cada gerador possui 4 sequências diferentes, o que fornece um total de 256 possibilidades. 
