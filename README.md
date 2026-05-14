@@ -4,7 +4,7 @@ André Lucas de Souza Lima
 Kayky Moreira Morais  
 Computer Science - Federal University of Cariri (UFCA)  
 Developed in the Digital Circuits course  
-Instructed by Professor Ramon Santos Nepomuceno  
+Instructed by professor Ramon Santos Nepomuceno  
 
 ---
 
