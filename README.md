@@ -1,158 +1,163 @@
-<h1>Matching Game no Logsim</h1>
+# Matching Game in Logisim
 
-André Lucas de Souza Lima <br>
-Kayky Moreira Morais <br>
-Ciência da Computação - Universidade Federal do Cariri <br>
-Desenvolvido na disciplina de circuitos digitais <br>
-Instruído pelo docente Ramon Santos Nepomuceno
-<br><br>
+André Lucas de Souza Lima  
+Kayky Moreira Morais  
+Computer Science - Federal University of Cariri (UFCA)  
+Developed in the Digital Circuits course  
+Instructed by Professor Ramon Santos Nepomuceno  
 
-<h2>Do que se trata</h2>
+---
 
-Este projeto é um "Matching Game", jogo envolvendo a memória, criado a partir da aplicação Logisim, que é utilizada para desenvolver circuitos de baixo nível simulados em um meio digital.
+## What it is about
 
-Abaixo está a imagem da tela principal:
+This project is a "Matching Game" (memory game), created using the Logisim application, which is used to develop simulated low-level circuits in a digital environment.
 
-![imagem principal da tela principal do jogo](./Pictures/picture_15.png)
+Below is the image of the main screen:
 
-O objetivo principal foi oferecer uma experiência divertida em um jogo funcional e nos desafiar com o uso majoritário de estruturas de memória, como flip flops, registradores, contadores e outras ferramentas que foram essenciais para a implementação final.
+![main image of the game's main screen](./Pictures/picture_15.png)
 
-Também foram necessárias diversas revisões ao longo do trabalho feito para que o resultado fosse sólido e não houvessem inconsistências ou bugs, como os que serão mostrados e explicados depois.
+The main goal was to offer a fun experience in a functional game and to challenge ourselves with the extensive use of memory structures, such as flip-flops, registers, counters, and other tools that were essential for the final implementation.
 
-<h2>Como instalar o Logisim</h2>
+Several revisions were also necessary throughout the work so that the result was solid and there were no inconsistencies or bugs, like the ones that will be shown and explained later.
 
-A forma mais rápida e segura de instalar o Logisim é pelo site SourceForge, conhecido por disponibilizar downloads em uma plataforma sólida. <br>
-Passos para instalar: <br>
-Ao acessar este <a href="https://sourceforge.net/projects/circuit/">link</a>, você deve ser redirecionado para a página do Logisim no SourceForge, que será parecida com a seguinte imagem:
+---
 
-![página do logisim no sourceforge](./Pictures/picture_14.png)
+## How to install Logisim
 
-Aqui, basta apenas apertar o botão principal escrito "Download", que transferirá um executável para seu navegador e solicitará um local de armazenamento no computador. <br>
-Após isso, o Logisim já estará instalado e pronto para ser executado por meio desse arquivo.
+The fastest and safest way to install Logisim is through the SourceForge website, known for providing downloads on a solid platform.  
+**Steps to install:** By accessing this [link](https://sourceforge.net/projects/circuit/), you should be redirected to the Logisim page on SourceForge, which will look similar to the following image:
 
-<h2>Como jogar (regras)</h2>
+![logisim page on sourceforge](./Pictures/picture_14.png)
 
-O Matching Game (ou jogo da memória) é jogado por dois jogadores que devem usar sua capacidade de memorizar as cartas para vencer.
+Here, just press the main button labeled "Download", which will transfer an executable to your browser and ask for a storage location on your computer.  
+After that, Logisim will be installed and ready to be executed through this file.
 
-Basicamente, o jogo se passa em turnos, em que cada jogador escolhe duas cartas diferentes para que seus números ocultos sejam revelados. Caso os números sejam iguais, a pontuação do jogador que conseguiu adivinhar corretamente é acrescida em um e as cartas escolhidas têm seus números revelados e não podem ser selecionadas até o final do jogo. Caso contrário, a pontuação se mantém a mesma e os números das cartas voltam a serem escondidos.
+---
 
-De qualquer forma, após a verificação de acerto, a vez é passada ao outro jogador, e isso se repete até que todas as cartas tenham sido reveladas e um dos jogadores vença ou haja um empate.
+## How to play (rules)
 
-<h2>Funcionamento</h2>
+The Matching Game (or memory game) is played by two players who must use their ability to memorize the cards to win.
 
-<h3>Máquina de estado</h3>
+Basically, the game is played in turns, where each player chooses two different cards so that their hidden numbers are revealed. If the numbers are the same, the score of the player who guessed correctly is increased by one, and the chosen cards have their numbers revealed and cannot be selected again until the end of the game. Otherwise, the score remains the same and the numbers on the cards are hidden again.
 
-O prolongamento do jogo foi dividido em quatro estados para que os processos acontecessem de forma organizada e certa, tais estados são passados conforme as ações dos jogadores e possuem certas funcionalidades a ocorrerem em seus momentos, são eles:
+Either way, after the match verification, the turn is passed to the other player, and this repeats until all cards have been revealed and one of the players wins or there is a tie.
 
-Estado 0 - esse é o de repouso, em que o circuito em que o circuito espera pela escolha da primeira carta do jogador.
+---
 
-Estado 1 - após a seleção, o jogador aperta no botão "CONFIRMA" sobre o display que quer e então, o número da carta é exibido e armazenado como o valor da primeira seleção. Depois, há a espera pela segunda escolha.
+## How it works
 
-Estado 2 - da mesma forma que no estado 1, o botão "CONFIRMA" é pressionado sobre uma carta diferente da primeira, seu valor é revelado e guardado como o primeiro número. Em seguida, ocorre um aguardo para a passagem ao próximo estado.
+### State Machine
 
-Estado 3 - repetindo o pressionamento do botão "CONFIRMA" mais uma vez sobre qualquer display, o circuito compara ambos os números escolhidos e caso sejam iguais, há a pontuação para o jogador do turno e os displays escolhidos continuam ligados até o fim do jogo. Caso sejam diferentes, não é contado ponto ao jogador e os valores são escondidos novamente. Ao final desse estado, ele é automaticamente passado para o inicial, formando um looping.
+The progression of the game was divided into four states so that the processes happen in an organized and correct way. These states change according to the players' actions and have specific functionalities that occur at their moments, they are:
 
-Para que o circuito identifique o que fazer em cada um dos momentos do jogo, uma máquina de estados foi implementada, que é a representada abaixo:
+* **State 0:** this is the idle state, where the circuit waits for the player to choose the first card.
+* **State 1:** after the selection, the player presses the "CONFIRM" button over the desired display, and then, the card's number is shown and stored as the value of the first selection. Then, it waits for the second choice.
+* **State 2:** just like in state 1, the "CONFIRM" button is pressed over a card different from the first one, its value is revealed and stored as the second number. Next, there is a wait to transition to the next state.
+* **State 3:** repeating the press of the "CONFIRM" button once more over any display, the circuit compares both chosen numbers, and if they are equal, the player of the turn scores a point and the chosen displays remain on until the end of the game. If they are different, no point is counted for the player and the values are hidden again. At the end of this state, it automatically transitions back to the initial one, forming a loop.
 
-![máquina de estados](./Pictures/picture_16.png)
+To ensure the circuit identifies what to do at each moment of the game, a state machine was implemented, which is represented below:
 
-Assim que o botão confirma é acionado (com delay), seu pulso se junta em um AND vindo de um OR com um túnel "ligado" negado e um "estado 2" para acresentar o valor de um contador responsável por representar o estado atual. Essa estrutura garante que a escolha da segunda carta só ocorra se a escolha não seja a mesma da primeira pelo túnel "ligado" (que retorna 1 caso o led atual esteja ligado) barrado ao mesmo tempo que garante que o estado seja alterado automaticamente na situação em que o atual for o estado 2, para que assim o jogador não precise apertar o botão "CONFIRMA" desnecessariamente.
+![state machine](./Pictures/picture_16.png)
 
-À direita da imagem, o resultado do contador é obtido e comparado quatro vezes para que possa passar o valor 1 apenas para o túnel referente a seu estado real.
+As soon as the confirm button is pressed (with delay), its pulse joins an AND gate coming from an OR gate with a negated "on" (*ligado*) tunnel and a "state 2" to increment the value of a counter responsible for representing the current state. This structure ensures that the choice of the second card only happens if the choice is not the same as the first one through the "on" tunnel (which returns 1 if the current LED is on) negated, while at the same time ensuring that the state is changed automatically in the situation where the current one is state 2, so that the player doesn't have to press the "CONFIRM" button unnecessarily.
 
-<h3>Leds</h3>
+On the right side of the image, the counter's result is obtained and compared four times so that it can pass the value 1 only to the tunnel referring to its actual state.
 
-Os leds de seleção são uma forma efetiva para que o jogador se localize e navegue pelos displays para que assim faça sua escolha de jogada.
+### LEDs
 
-![demonstração do led](./Pictures/picture_18.png)
+The selection LEDs are an effective way for the player to navigate the displays and make their play choice.
 
-Na imagem acima, o led representa o círculo acima do display hexadecimal. Ele está desligado à esquerda da imagem e ligado na direita.
+![led demonstration](./Pictures/picture_18.png)
 
-Eis o controle que permite a navegação e define os leds acesos e desligados:
+In the image above, the LED represents the circle above the hexadecimal display. It is off on the left of the image and on on the right.
 
-![demonstração do controle do led](./Pictures/picture_19.png)
+Here is the control that allows navigation and defines the LEDs turned on and off:
 
-Intuitivamente, os botões representam as direções de navegação entre os leds no grid do jogo, podendo ser para cima, baixo, esquerda e direita.
+![led control demonstration](./Pictures/picture_19.png)
 
-A estruturação usada para implementar essa mudança de leds é:
+Intuitively, the buttons represent the navigation directions between the LEDs on the game grid, which can be up, down, left, and right.
 
-![circuito para navegar pelos leds](./Pictures//picture_20.png)
+The structure used to implement this LED change is:
 
-A lógica é que a posição do led seja representada como uma dupla de linha e coluna armazenadas em contadores, com valores maiores para a linha e coluna apontarem para leds mais à direita e abaixo, já que o led (0, 0) é o situado no canto superior esquerdo do grid.
+![circuit to navigate the leds](./Pictures//picture_20.png)
 
-No caso das setas à direita ou abaixo serem apertadas, os contadores de coluna ou linha, respectivamente, recebem um clock e são aumentados em uma unidade. Em contraposição, o acionamento das setas à esquerda ou acima aciona esse mesmo clock ao mesmo tempo que a entrada "load", a qual faz com que o ele diminua o contador em uma unidade.
+The logic is that the LED position is represented as a row and column pair stored in counters, with higher values for the row and column pointing to LEDs further to the right and down, since the LED (0, 0) is the one located in the upper left corner of the grid.
 
-<h3>Displays</h3>
+In case the right or down arrows are pressed, the column or row counters, respectively, receive a clock pulse and are increased by one unit. In contrast, pressing the left or up arrows triggers this same clock at the same time as the "load" input, which decreases the counter by one unit.
 
-Os displays hexadecimais são a representação visual do valor armazenado em cada uma das "cartas" do jogo. Eles permanecem desligados (traço no meio) até que sejam selecionados para terem seus valores revelados.
+### Displays
 
-Essa escolha ocorre pela escolha do led acima do display, o que vai fazer com o que ele acenda, seguido pelo acionamento do botão "CONFIRMA", dessa maneira o display correspondente é aceso. 
-Eis o mecanismo responsável por acender o display:
+The hexadecimal displays are the visual representation of the value stored in each of the game's "cards". They remain off (dash in the middle) until they are selected to have their values revealed.
 
-![mecanismo do display](Pictures/picture_1.png)
+This choice occurs by selecting the LED above the display, which will make it light up, followed by pressing the "CONFIRM" button, thus turning on the corresponding display. 
+Here is the mechanism responsible for turning on the display:
 
-Quando o botão "CONFIRMA" é pressionado, ele gera um pulso que aciona o clock do registrador, passando por uma porta AND entre o pulso "CONFIRMA", o led (para acender o correspondente) e um estado 2 negado(será explicado melhor adiante). Esse registrador tem apenas um bit de dados e guarda a informação se o display foi escolhido.
-Uma vez escolhido, ele passa a informação para um multiplexador e para um túnel "ligadoxy", o qual será útil para verificar se o display já foi aceso ou não. O multiplexador libera o valor do número correspondente no valor de entrada alto para o túnel "xy" (no caso da imagem, "00"), que se conecta ao display e o acende.
-O mecanismo que guarda os números escolhidos pelos jogadores é mostrado a seguir:
-<br><br>
+![display mechanism](Pictures/picture_1.png)
 
-![mecanismo de armazenamento](Pictures/picture_4.png)
+When the "CONFIRM" button is pressed, it generates a pulse that triggers the register's clock, passing through an AND gate between the "CONFIRM" pulse, the LED (to turn on the corresponding one), and a negated state 2 (this will be better explained later). This register has only one data bit and stores the information on whether the display was chosen.
 
-Os números são as entradas do MUX, e o seletor é composto pela combinação dos bits da linha e coluna. Para guardar o primeiro número (no estado 0), assim que há o pulso do "CONFIRMA" também há a troca de estado para 1,assim a partir da porta OR dos dois túneis, o clock do registrador é acionado e guarda o primeiro número escolhido. Para guardar o segundo é o mesmo mecanismo, exceto pelos túneis "estado 2" e "segundo num".
+Once chosen, it passes the information to a multiplexer and to an "onxy" (*ligadoxy*) tunnel, which will be useful to check if the display has already been turned on or not. The multiplexer releases the value of the corresponding number in the high input value to the "xy" tunnel (in the case of the image, "00"), which connects to the display and turns it on.
 
-<h3>Verificação</h3>
+The mechanism that stores the numbers chosen by the players is shown below:
 
-Os túneis "primeiro num" e "segundo num" são comparados, e quando a máquina passa pelo estado 3, surge um pulso no túnel "check":
+![storage mechanism](Pictures/picture_4.png)
 
-![túnel "check"](Pictures/picture_2.png)
+The numbers are the MUX inputs, and the selector is composed of the combination of the row and column bits. To store the first number (in state 0), as soon as the "CONFIRM" pulse occurs, there is also the state change to 1; thus, from the OR gate of the two tunnels, the register's clock is triggered and stores the first chosen number. To store the second, the mechanism is the same, except for the "state 2" and "second num" tunnels.
 
-Esse túnel "check" é necessário para permitir que os displays permaneçam acesos. A lógica para permanecer o display aceso é aseguinte: A partir de um AND entre os túneis "ligadoxy", vistos anteriormente, e o "check". Se o número foi acertado, o túnel "acertadoxy" é acionado, e deixa o segundo registrador dos displays em 1, o qual só volta a 0 a partir do reset. Dessa forma, com o registrador em 1 e a porta OR, ele força o display ficar aceso após o acertado. 
+### Verification
 
-![verificação de acerto](Pictures/picture_3.png)
+The "first num" and "second num" tunnels are compared, and when the machine passes through state 3, a pulse appears in the "check" tunnel:
 
-<h3>Pontuação (e próximo turno)</h3>
+![tunnel "check"](Pictures/picture_2.png)
 
-Quando os pares estão corretos, o "check" também é direcionado para o mecanismo de pontuação. A pontuação é registrada em um contador, incremetado a cada acerto e de acordo com o jogador que pontuou. Isso é garantido pelo OR entre o "check" e o "jogador"(negado se for o jogador 1). As pontuações são passadas pelos tunéis "PONTUAÇÃO" para que apareçam na tela principal.
+This "check" tunnel is necessary to allow the displays to remain on. The logic to keep the display on is as follows: from an AND gate between the "onxy" (*ligadoxy*) tunnels seen previously, and the "check". If the number was guessed correctly, the "correctxy" (*acertadoxy*) tunnel is triggered, and leaves the second register of the displays at 1, which only returns to 0 through the reset. This way, with the register at 1 and the OR gate, it forces the display to stay on after a correct guess.
 
-![contadores da pontuação](Pictures/picture_6.png)
+![correct guess verification](Pictures/picture_3.png)
 
-A troca de jogador ocorre sempre no estado 3 (e em seguida da pontuação, se houver). Os jogadores são representados por um contador de 1 bit, que se reinicia a cada troca. A troca acontece por um AND entre a saída do registrador que armazena a informação que o circuito passou pelo estado 3 e um "check" negado, pois não pode haver a troca de jogador enquanto pontua para evitar erros. O túnel "jogador" é dividido para os túneis "JOGADOR 1" e "JOGADOR 2" a fim do turno de cada jogador ser exibido na tela.
+### Scoring (and next turn)
 
-![contador do turno](Pictures/picture_7.png)
+When the pairs are correct, the "check" is also directed to the scoring mechanism. The score is recorded in a counter, incremented with each correct guess and according to the player who scored. This is guaranteed by the OR between the "check" and the "player" (negated if it is player 1). The scores are passed through the "SCORE" (*PONTUAÇÃO*) tunnels so they appear on the main screen.
 
-<h3>Restrição de estado</h3>
+![score counters](Pictures/picture_6.png)
 
-Com o intuito de evitar a escolha de um display já aceso (seja porque foi escolhido primeiro ou já acertado), um mecanismo de restrição de estado foi criado. A princípio, ele impede que haja a troca de estado se o jogador apertar num display já aceso. Ele é feito a partir de um AND entre o "CONFIRMA" e um OR entre o túnel "ligado" barrado e "estado 2".
+The player swap always occurs in state 3 (and following the score, if any). The players are represented by a 1-bit counter, which resets at each swap. The swap happens through an AND gate between the output of the register that stores the information that the circuit passed through state 3 and a negated "check", because the player swap cannot occur while scoring to avoid errors. The "player" tunnel is divided into "PLAYER 1" and "PLAYER 2" tunnels so that each player's turn is displayed on the screen.
 
-![mecanismo de restrição](Pictures/picture_9.png)
+![turn counter](Pictures/picture_7.png)
 
-O túnel ligado é composto por um OR de 16 entradas, cada entrada é um AND entre o "ligadoxy" e o "ledxy" correspondente. Caso o player decida escolher um display já aceso ele precisará mover o led até o display indicado, ao fazer isso, o AND aciona o túnel "ligado", que informa se o display escolhido já está ligado. Dessa maneira, é preciso que o display escolhido pelo jogador *não* esteja aceso, por isso o uso da porta NOT.
+### State restriction
 
-![túnel "ligado"](Pictures/picture_8.png)
+In order to avoid choosing an already lit display (either because it was chosen first or already guessed correctly), a state restriction mechanism was created. Initially, it prevents the state from changing if the player presses on an already lit display. It is made from an AND between the "CONFIRM" and an OR between the negated "on" (*ligado*) tunnel and "state 2".
 
-O motivo por trás do OR com "estado 2" é bastante simples: no estado 2 não há o armazenamento de dados, dessa forma, mesmo que um led esteja aceso em cima de um display ligado, não há problema apertar o confirma pois nenhum valor será armazenado que altere o resultado da rodada (se pontuou ou não) e a troca de jogador. Sem esse OR, seria necessário que o jogador mudasse para um display desligado apenas para passar a vez, o que não é eficiente.
+![restriction mechanism](Pictures/picture_9.png)
 
-<h3>Correção de eventuais bugs</h3>
+The "on" tunnel is composed of a 16-input OR gate; each input is an AND between the "onxy" and the corresponding "ledxy". In case the player decides to choose an already lit display, they will need to move the LED to the indicated display. Upon doing so, the AND triggers the "on" tunnel, which informs if the chosen display is already on. Because of this, the display chosen by the player *must not* be on, hence the use of the NOT gate.
 
-Durante a construção do circuito, alguns bugs surgiram principalmente por motivos de atraso de clock. A fim de resolvê-los, algumas modificações foram feitas em partes específicas do circuito.
-O primeiro deles é relacionado ao atraso do túnel "CONFIRMA" na máquina de estado. Ele foi conectado a um flip flop D, a saída foi conectada ao AND de confirmação e ao clear, permitindo que apenas um único pulso de clock seja ativado. Anteriormente a essa modificação, o pulso do "CONFIRMA" gerava a mudança de estado e entrava em conflito com o túnel "ligado", o que ignorava o estado 0 e passava do estado 3 direto para o 1. 
+![tunnel "on"](Pictures/picture_8.png)
 
-Além disso, flip flops D também foram adicionados ao pulso do "estado 1" e "estado 2" nos registradores que guardam os números escolhidos para garantir seu funciomnamento.
+The reason behind the OR with "state 2" is quite simple: in state 2 there is no data storage, so even if an LED is on over a lit display, there is no problem pressing confirm because no value will be stored that alters the outcome of the round (whether scored or not) and the player swap. Without this OR, the player would need to change to an unlit display just to pass the turn, which is not efficient.
 
-![modificação do túnel "estado 1"](Pictures/picture_10.png)
+### Fixing occasional bugs
 
-No contador pesponsável pelo turno dos jogadores, foi preciso adicionar um registrador para o estado 3 e um "check" negado pois no estado 3 ocorrem a pontuação e a troca de jogador, o que ocasionava um pulso suficiente para pontuar os dois jogadores ao mesmo tempo. Portanto, a modificação feita guarda o estado 3 e, quando a já pontuação ter sido feita (ou seja, *não* está checando), logo após passa o turno.
+During the construction of the circuit, some bugs arose mainly due to clock delays. In order to solve them, some modifications were made in specific parts of the circuit.
 
-![modificação no mecanismo de turno](Pictures/picture_11.png)
+The first of them is related to the delay of the "CONFIRM" tunnel in the state machine. It was connected to a D flip-flop; the output was connected to the confirmation AND and to the clear, allowing only a single clock pulse to be activated. Prior to this modification, the "CONFIRM" pulse generated the state change and conflicted with the "on" tunnel, which bypassed state 0 and went straight from state 3 to 1. 
 
-Por fim, a última alteração realizada foi inserir uma porta AND de três entradas para o registrador dos displays, pois sem isso, caso um player acertasse um par, e mudasse para outro display desligado antes de passar a vez, este era aceso e impedia o andamento do jogo.
+Additionally, D flip-flops were also added to the "state 1" and "state 2" pulses in the registers that store the chosen numbers to guarantee their operation.
 
-![modificação no mecanismo dos display](Pictures/picture_12.png)
+![modification of tunnel "state 1"](Pictures/picture_10.png)
 
-<h3>Aleatoriedade</h3>
+In the counter responsible for the players' turn, a register had to be added for state 3 and a negated "check", because in state 3 the scoring and the player swap occur, which caused a sufficient pulse to score both players at the same time. Therefore, the modification made stores state 3 and, once the score has already been made (that is, it is *not* checking), the turn is passed right after.
 
-O circuito possui um sistema simples de aleatoriedade. Ele funciona a partir de um gerador de número aleatório de 4 bits que, a depender do número gerado, seleciona uma sequência para ser exibida em cada linha do jogo.
+![modification in the turn mechanism](Pictures/picture_11.png)
 
-![circuito auxiliar de aleatoriedade](Pictures/picture_13.png)
+Finally, the last alteration made was inserting a 3-input AND gate for the displays' register, because without it, if a player guessed a pair correctly and moved to another unlit display before passing the turn, it would turn on and impede the progress of the game.
 
-Seguindo a imagem acima como exemplo, se o gerador marcar 0, o número 7 é exibido no display do túnel "N00", já se marcar 2, o número 2 é exibido. Assim, como são 4 linhas, há 4 geradores e cada gerador possui 4 sequências diferentes, o que fornece um total de 256 possibilidades. 
+![modification in the display mechanism](Pictures/picture_12.png)
+
+### Randomness
+
+The circuit has a simple randomness system. It works from a 4-bit random number generator that, depending on the generated number, selects a sequence to be displayed in each row of the game.
+
+![randomness auxiliary circuit](Pictures/picture_13.png)
+
+Following the image above as an example, if the generator shows 0, the number 7 is displayed on the "N00" tunnel display; if it shows 2, the number 2 is displayed. Thus, since there are 4 rows, there are 4 generators and each generator has 4 different sequences, providing a total of 256 possibilities.
